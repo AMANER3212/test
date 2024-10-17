@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html ng-app="translationApp">
+<head>
+<title>Translation Application</title>
+<script
+src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.8.2/angular.min.js">
+</script>
+</head>
+<body ng-controller="translationController">
+<h1>Translation Application</h1>
+<select ng-model="selectedLanguage">
+<option ng-repeat="language in languages" value="{{ language.code }}">{{
+language.name }}</option>
+</select>
+<div>
+<h2>Selected Language: {{ selectedLanguage }}</h2>
+<p>{{ translations[selectedLanguage] }}</p>
+</div>
+</body>
+</html>
+<script>
+angular.module('translationApp', [])
+.controller('translationController', function($scope) {
+$scope.languages = [
+{ name: 'English', code: 'en' },
+{ name: 'Tamil', code: 'tm' },
+{ name: 'Marathi', code: 'mr' },
+{ name: 'Hindi', code: 'hd' }
+];
+$scope.translations = {
+'en': 'Hello!',
+'tm': 'Vanakkam!',
+'mr': 'Namaskar!',
+'hd':'Namaste!'
+};
+$scope.selectedLanguage = 'en';
+});
+</script>
