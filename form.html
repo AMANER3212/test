@@ -1,0 +1,74 @@
+<!doctype html>
+<html ng-app="formApp">
+<head>
+<title>AngularJS Form Application</title>
+<script
+src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.8.2/angular.min.js">
+</script>
+</head>
+<body ng-controller="FormController">
+<h1>AngularJS Form Application</h1>
+<form ng-submit="submitForm()">
+<label for="name">Name:</label>
+<input
+type="text"
+id="name"
+ng-model="formData.name"
+ng-blur="validateName()"
+ng-focus="resetNameError()"
+/>
+<span style="color: red" ng-show="nameError">{{ nameError }}</span>
+<br />
+<label for="email">Email:</label>
+<input
+type="email"
+id="email"
+ng-model="formData.email"
+ng-change="validateEmail()"
+ng-focus="resetEmailError()"
+/>
+<span style="color: red" ng-show="emailError">{{ emailError }}</span>
+<br />
+<button type="button" ng-click="clickEvent()">Click Me</button>
+<br />
+<button type="submit">Submit</button>
+</form>
+<script>
+angular.module("formApp", []).controller("FormController", [
+"$scope",
+function ($scope) {
+$scope.formData = {};
+$scope.clickEvent = function () {
+console.log("Click event triggered.");
+};
+$scope.validateName = function () {
+if (!$scope.formData.name) {
+$scope.nameError = "Name is required.";
+} else {
+$scope.nameError = "";
+}
+};
+$scope.resetNameError = function () {
+$scope.nameError = "";
+};
+$scope.validateEmail = function () {
+if (!$scope.formData.email) {
+$scope.emailError = "Email is required.";
+} else if (!/^\S+@\S+\.\S+$/.test($scope.formData.email)) {
+$scope.emailError = "Invalid email format.";
+} else {
+$scope.emailError = "";
+}
+};
+$scope.resetEmailError = function () {
+$scope.emailError = "";
+};
+$scope.submitForm = function () {
+// Perform any additional logic or AJAX calls here if needed.
+console.log("Form submitted:", $scope.formData);
+};
+},
+]);
+</script>
+</body>
+</html>
