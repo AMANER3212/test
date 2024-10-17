@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html ng-app="cartApp">
+<head>
+<title>Cart Application</title>
+<script
+src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.8.2/angular.min.js">
+</script>
+</head>
+<body ng-controller="cartController">
+<h1>Cart Application</h1>
+<div ng-repeat="product in products">
+<p>{{ product.name }} - ${{ product.price }}</p>
+<button ng-click="addToCart(product)">Add to Cart</button>
+</div>
+<h2>Cart</h2>
+<ul>
+<li ng-repeat="item in cartItems">{{ item.name }} - ${{ item.price }}</li>
+</ul>
+<h3>Total: ${{ getTotal() }}</h3>
+</body>
+</html>
+<script>
+angular.module('cartApp', [])
+.controller('cartController', function($scope) {
+$scope.products = [
+{ name: 'Product 1', price: 10 },
+{ name: 'Product 2', price: 20 },
+{ name: 'Product 3', price: 30 }
+];
+$scope.cartItems = [];
+$scope.addToCart = function(product) {
+$scope.cartItems.push(product);
+};
+$scope.getTotal = function() {
+var total = 0;
+for (var i = 0; i < $scope.cartItems.length; i++) {
+total += $scope.cartItems[i].price;
+}
+return total;
+};
+});
+</script>
